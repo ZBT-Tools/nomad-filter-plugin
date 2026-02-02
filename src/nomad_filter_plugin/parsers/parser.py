@@ -37,7 +37,7 @@ class NewParser(MatchingParser):
         upload_id_first_chars = upload_id[:2]
         archive.metadata.upload_id = archive.m_context.upload_id  # upload_id
         archive.metadata.entry_id = "h5_dataset"
-        archive.data.name = os.path.basename(mainfile)
+
         datetime_format = "%d.%m.%y %H:%M:%S"
         StagingUploadFiles(upload_id=upload_id, create=True)
 

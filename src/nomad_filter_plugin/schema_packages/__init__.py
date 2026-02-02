@@ -3,7 +3,7 @@ from pydantic import Field
 
 
 class NewSchemaPackageEntryPoint(SchemaPackageEntryPoint):
-    parameter: int = Field(0, description='Custom configuration parameter')
+    parameter: int = Field(0, description="Custom configuration parameter")
 
     def load(self):
         from nomad_filter_plugin.schema_packages.schema_package import m_package
@@ -12,6 +12,6 @@ class NewSchemaPackageEntryPoint(SchemaPackageEntryPoint):
 
 
 schema_package_entry_point = NewSchemaPackageEntryPoint(
-    name='NewSchemaPackage',
-    description='New schema package entry point configuration.',
+    name="FilterSchemaPackage",
+    description="Schema for handling Holger's data.",
 )

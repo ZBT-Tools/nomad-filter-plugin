@@ -54,7 +54,8 @@ class NewParser(MatchingParser):
         StagingUploadFiles(upload_id=upload_id, create=True)
 
         dataframe = pd.read_csv(mainfile, sep="\t", decimal=",", encoding="ISO-8859-1")
-
+        dataframe = clean_dataframe_columns(dataframe)
+        print(dataframe.columns.tolist()[:10])
         print("Original DataFrame:", len(dataframe))
         print(dataframe.head())
         # CLEANING

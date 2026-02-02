@@ -3,7 +3,7 @@ from pydantic import Field
 
 
 class NewParserEntryPoint(ParserEntryPoint):
-    parameter: int = Field(0, description='Custom configuration parameter')
+    parameter: int = Field(0, description="Custom configuration parameter")
 
     def load(self):
         from nomad_filter_plugin.parsers.parser import NewParser
@@ -12,7 +12,7 @@ class NewParserEntryPoint(ParserEntryPoint):
 
 
 parser_entry_point = NewParserEntryPoint(
-    name='NewParser',
-    description='New parser entry point configuration.',
-    mainfile_name_re=r'^[^.]+$',
+    name="NewParser",
+    description="New parser entry point configuration.",
+    mainfile_name_re=r".*\.csv$",
 )

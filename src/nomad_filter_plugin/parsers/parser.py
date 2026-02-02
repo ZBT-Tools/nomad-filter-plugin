@@ -77,7 +77,8 @@ class NewParser(MatchingParser):
 
         print(dataframe.head())
         print("Filtered DataFrame:", len(dataframe))
-        filename = f"{Path(mainfile).stem}.h5"
+        # filename = f"{Path(mainfile).stem}.h5"
+        filename = f"output_file.h5"
         hdf5_filename = (
             f".volumes/fs/staging/{upload_id_first_chars}/{upload_id}/raw/{filename}"
         )

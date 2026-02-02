@@ -90,7 +90,6 @@ class NewParser(MatchingParser):
         # when using 'nomad parse' this returns None but when used as a plugin in Nomad OASIS, it has a value!
         # contx = archive.m_context.upload_id
         print("contx value ", upload_id)
-        logger.info("cotx value ", upload_id)
 
         # now write to file. This is only for displaying data in the hdf5 viewer
         with archive.m_context.raw_file(filename, "w") as newfile:
@@ -112,7 +111,14 @@ class NewParser(MatchingParser):
             try:
                 dataset_path = f"/uploads/{upload_id}/raw/{filename}#/{key}/value"
                 setattr(archive.data, key, dataset_path)
-            except:
-                logger.warning(f"Failed to set dataset path for key {key}")
+            except Exception as e:
+                print(e)
+
+        with h5py.File(hdf5_filename, "r") as f:
+            ls = list(f.keys())
+            print(ls)
+            for key in ls:
+                group = f.get(key)
+                print(group["value"][()])
 
         archive.workflow2 = Workflow(name="test")

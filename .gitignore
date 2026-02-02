@@ -129,3 +129,4 @@ dmypy.json
 # Pyre type checker
 .pyre/
 tests/data/mit Fasern 40°CBZ16_2__08_10_2025.csv
+*.h5

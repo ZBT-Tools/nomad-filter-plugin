@@ -3,6 +3,8 @@ from typing import (
     TYPE_CHECKING,
 )
 
+from nomad_filter_plugin.schema_packages.schema_package import NewSchemaPackage
+
 if TYPE_CHECKING:
     from nomad.datamodel.datamodel import (
         EntryArchive,
@@ -24,6 +26,14 @@ configuration = config.get_plugin_entry_point(
 )
 
 
+def clean_dataframe_columns(dataframe):
+    dataframe.columns = [
+        column.replace(" ", "_").replace("/", "_").replace(".", "_")
+        for column in dataframe.columns
+    ]
+    return dataframe
+
+
 class NewParser(MatchingParser):
     def parse(
         self,
@@ -33,18 +43,20 @@ class NewParser(MatchingParser):
         child_archives: dict[str, "EntryArchive"] = None,
     ) -> None:
         logger.info("NewParser.parse", parameter=configuration.parameter)
-        upload_id = archive.m_context.upload_id
+        upload_id = (
+            archive.m_context.upload_id if archive.m_context.upload_id else "unknown"
+        )
         upload_id_first_chars = upload_id[:2]
-        archive.metadata.upload_id = archive.m_context.upload_id  # upload_id
+        archive.metadata.upload_id = upload_id
         archive.metadata.entry_id = "h5_dataset"
-
+        archive.data = NewSchemaPackage()
         datetime_format = "%d.%m.%y %H:%M:%S"
         StagingUploadFiles(upload_id=upload_id, create=True)
 
         dataframe = pd.read_csv(mainfile, sep="\t", decimal=",", encoding="ISO-8859-1")
 
         print("Original DataFrame:", len(dataframe))
-
+        print(dataframe.head())
         # CLEANING
         dataframe.dropna(how="all", inplace=True)
         first_column = dataframe.columns[0]

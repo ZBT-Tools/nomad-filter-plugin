@@ -101,7 +101,7 @@ class NewParser(MatchingParser):
 
                     group = hdf.create_group(key)
                     group.create_dataset("value", data=values)
-                    group.create_dataset("time", data=num_array_length)
+                    group.create_dataset("time", data=dataframe["Datum"])
                     group.attrs["axes"] = "time"
                     group.attrs["signal"] = "value"
                     group.attrs["NX_class"] = "NXdata"

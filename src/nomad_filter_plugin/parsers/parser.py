@@ -20,6 +20,8 @@ from nomad.parsing.parser import MatchingParser
 from nomad.files import StagingUploadFiles
 import pandas as pd
 import os
+import json
+from pathlib import path
 
 configuration = config.get_plugin_entry_point(
     "nomad_filter_plugin.parsers:parser_entry_point"
@@ -53,7 +55,26 @@ class NewParser(MatchingParser):
         datetime_format = "%d.%m.%y %H:%M:%S"
         StagingUploadFiles(upload_id=upload_id, create=True)
 
-        dataframe = pd.read_csv(mainfile, sep="\t", decimal=",", encoding="ISO-8859-1")
+        path = Path(mainfile)
+        folders = [item for item in path.iterdir() if item.is_dir()]
+        file = next(
+            (
+                item
+                for item in path.iterdir()
+                if item.is_file() and item.suffix != ".xlsx"
+            ),
+            None,
+        )
+
+        logger.info(
+            "NewParser.parse",
+            parameter=f"Found folders: {[folder.name for folder in folders]}, Found file: {file.name if file else 'No file found'}",
+        )
+
+        dataframe = pd.read_csv(
+            path.parent / file.name, sep="\t", decimal=",", encoding="ISO-8859-1"
+        )
+
         dataframe = clean_dataframe_columns(dataframe)
         print(dataframe.columns.tolist()[:10])
         print("Original DataFrame:", len(dataframe))

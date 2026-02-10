@@ -56,24 +56,8 @@ class NewParser(MatchingParser):
         StagingUploadFiles(upload_id=upload_id, create=True)
 
         path = Path(mainfile)
-        folders = [item for item in path.iterdir() if item.is_dir()]
-        file = next(
-            (
-                item
-                for item in path.iterdir()
-                if item.is_file() and item.suffix != ".xlsx"
-            ),
-            None,
-        )
 
-        logger.info(
-            "NewParser.parse",
-            parameter=f"Found folders: {[folder.name for folder in folders]}, Found file: {file.name if file else 'No file found'}",
-        )
-
-        dataframe = pd.read_csv(
-            path.parent / file.name, sep="\t", decimal=",", encoding="ISO-8859-1"
-        )
+        dataframe = pd.read_csv(mainfile, sep="\t", decimal=",", encoding="ISO-8859-1")
 
         dataframe = clean_dataframe_columns(dataframe)
         print(dataframe.columns.tolist()[:10])

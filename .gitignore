@@ -130,3 +130,9 @@ dmypy.json
 .pyre/
 tests/data/mit Fasern 40°CBZ16_2__08_10_2025.csv
 *.h5
+tests/data/BZ16_1__25_07_2024 o letz Spal m Dat.txt
+tests/data/BZ16_1__26_07_2024
+tests/data/BZ16_1__27_07_2024
+tests/data/BZ16_1__28_07_2024
+tests/data/BZ16_1__29_07_2024
+tests/data/BZ16_1__30_07_2024

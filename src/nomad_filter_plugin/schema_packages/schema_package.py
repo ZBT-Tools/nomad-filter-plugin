@@ -32,6 +32,7 @@ class NewSchemaPackage(Schema):
     Kommentar = Quantity(type=HDF5Reference)
     Strom_I___A = Quantity(type=HDF5Reference, shape=[])
     U_1 = Quantity(type=HDF5Reference, shape=[])
+    Set_aktuell = Quantity(type=HDF5Reference, shape=[])
 
     def normalize(self, archive: "EntryArchive", logger: "BoundLogger") -> None:
         super().normalize(archive, logger)

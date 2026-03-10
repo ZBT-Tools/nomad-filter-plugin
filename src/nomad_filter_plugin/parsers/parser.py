@@ -118,7 +118,6 @@ class NewParser(MatchingParser):
             last_N_items = rows_with_id.tail(item["avgN"])
             for column in last_N_items.columns:
                 if pd.api.types.is_numeric_dtype(last_N_items[column]):
-                    print("Number here.-")
                     average_value = last_N_items[column].mean()
                     temp_df[column] = average_value
                 else:

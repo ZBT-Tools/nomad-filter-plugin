@@ -130,17 +130,26 @@ class NewParser(MatchingParser):
 
         print(len(result_df))
         output_file_excel_name = "output.xlsx"
-        with archive.m_context.raw_file(output_file_excel_name) as excel_file:
-            result_df.to_excel(excel_file.name, index=False)
 
         # filename = f"{Path(mainfile).stem}.h5"
         filename = f"output_file.h5"
+
         hdf5_filename = (
             f".volumes/fs/staging/{upload_id_first_chars}/{upload_id}/raw/{filename}"
         )
 
         with h5py.File(hdf5_filename, "w"):
             pass
+
+        with open(
+            f".volumes/fs/staging/{upload_id_first_chars}/{upload_id}/raw/{output_file_excel_name}",
+            "w",
+        ) as f:
+            f.write("")
+            pass
+
+        with archive.m_context.raw_file(output_file_excel_name) as excel_file:
+            result_df.to_excel(excel_file.name, index=False)
 
         num_array_length = list(range(len(roh_daten_dataframes)))
 

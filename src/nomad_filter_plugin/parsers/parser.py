@@ -129,7 +129,10 @@ class NewParser(MatchingParser):
         result_df = pd.concat(result_df, ignore_index=True)
 
         print(len(result_df))
-        result_df.to_excel("output.xlsx", index=False)
+        output_file_excel_name = "output.xlsx"
+        with archive.m_context.raw_file(output_file_excel_name) as excel_file:
+            result_df.to_excel(excel_file.name, index=False)
+
         # filename = f"{Path(mainfile).stem}.h5"
         filename = f"output_file.h5"
         hdf5_filename = (

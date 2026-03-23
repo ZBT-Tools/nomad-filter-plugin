@@ -19,8 +19,7 @@ from nomad.datamodel.metainfo.workflow import Workflow
 from nomad.parsing.parser import MatchingParser
 from nomad.files import StagingUploadFiles
 import pandas as pd
-import os
-import json
+from .utils import convert_to_hdf
 
 configuration = config.get_plugin_entry_point(
     "nomad_filter_plugin.parsers:parser_entry_point"
@@ -158,20 +157,21 @@ class NewParser(MatchingParser):
         print("contx value ", upload_id)
 
         # now write to file. This is only for displaying data in the hdf5 viewer
-        with archive.m_context.raw_file(filename, "w") as newfile:
-            with h5py.File(newfile.name, "w") as hdf:
-                for key in roh_daten_dataframes.columns:
+        convert_to_hdf(archive, filename, roh_daten_dataframes)
+        # with archive.m_context.raw_file(filename, "w") as newfile:
+        #     with h5py.File(newfile.name, "w") as hdf:
+        #         for key in roh_daten_dataframes.columns:
 
-                    values = roh_daten_dataframes[key].tolist()
+        #             values = roh_daten_dataframes[key].tolist()
 
-                    group = hdf.create_group(key)
-                    group.create_dataset("value", data=values)
-                    group.create_dataset(
-                        "time", data=roh_daten_dataframes["Datum"].tolist()
-                    )
-                    group.attrs["axes"] = "time"
-                    group.attrs["signal"] = "value"
-                    group.attrs["NX_class"] = "NXdata"
+        #             group = hdf.create_group(key)
+        #             group.create_dataset("value", data=values)
+        #             group.create_dataset(
+        #                 "time", data=roh_daten_dataframes["Datum"].tolist()
+        #             )
+        #             group.attrs["axes"] = "time"
+        #             group.attrs["signal"] = "value"
+        #             group.attrs["NX_class"] = "NXdata"
 
         for key in roh_daten_dataframes.columns:
             values = roh_daten_dataframes[key].tolist()

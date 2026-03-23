@@ -93,6 +93,7 @@ class NewParser(MatchingParser):
         roh_daten_dataframes = pd.concat(roh_daten_dataframes, ignore_index=True)
 
         roh_daten_dataframes = clean_dataframe_columns(roh_daten_dataframes, file)
+        convert_to_hdf(archive, filename, roh_daten_dataframes)
 
         # CLEANING
         roh_daten_dataframes.dropna(how="all", inplace=True)

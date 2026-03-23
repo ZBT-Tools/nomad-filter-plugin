@@ -10,7 +10,7 @@ def convert_to_hdf(archive, filename, dataframe):
 
                 group = hdf.create_group(key)
                 group.create_dataset("value", data=values)
-                group.create_dataset("time", data=dataframe["Datum"].tolist())
-                group.attrs["axes"] = "time"
-                group.attrs["signal"] = "value"
-                group.attrs["NX_class"] = "NXdata"
+                # group.create_dataset("time", data=dataframe["Datum"].tolist())
+                # group.attrs["axes"] = "time"
+                # group.attrs["signal"] = "value"
+                # group.attrs["NX_class"] = "NXdata"

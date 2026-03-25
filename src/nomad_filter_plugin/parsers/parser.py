@@ -95,7 +95,7 @@ class NewParser(MatchingParser):
         roh_daten_dataframes = pd.concat(roh_daten_dataframes, ignore_index=True)
 
         roh_daten_dataframes = clean_dataframe_columns(roh_daten_dataframes, file)
-        convert_to_hdf(archive, "original_file.h5", roh_daten_dataframes)
+        convert_to_hdf(archive, "original_file.hdf", roh_daten_dataframes)
 
         # CLEANING
         roh_daten_dataframes.dropna(how="all", inplace=True)
@@ -134,7 +134,7 @@ class NewParser(MatchingParser):
         output_file_excel_name = "output.xlsx"
 
         # filename = f"{Path(mainfile).stem}.h5"
-        filename = f"output_file.h5"
+        filename = f"output_file.hdf"
 
         hdf5_filename = (
             f".volumes/fs/staging/{upload_id_first_chars}/{upload_id}/raw/{filename}"

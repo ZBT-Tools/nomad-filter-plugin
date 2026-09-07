@@ -90,7 +90,16 @@ class NewParser(MatchingParser):
             "NewParser.parse",
             parameter=f"Found folders: {[folder.name for folder in datafiles]}, Found file: {file.name if file else 'No file found'}",
         )
-        filter_file = pd.read_excel(mainfile, sheet_name="filter")
+
+        excel_file = pd.ExcelFile(mainfile)
+        if "filter" not in excel_file.sheet_names:
+            logger.info(
+                "NewParser.parse",
+                parameter="No 'filter' sheet found in the Excel file",
+            )
+            return
+
+        filter_file = pd.read_excel(excel_file, sheet_name="filter")
         filter_as_json = filter_file.to_dict(orient="records")
 
         roh_daten_dataframes = []

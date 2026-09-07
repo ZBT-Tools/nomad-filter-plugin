@@ -79,6 +79,7 @@ class NewParser(MatchingParser):
         ]
 
         datafiles = files_without_extension if files_without_extension else None
+
         if datafiles is None:
             logger.info(
                 "NewParser.parse",
@@ -88,7 +89,7 @@ class NewParser(MatchingParser):
 
         logger.info(
             "NewParser.parse",
-            parameter=f"Found folders: {[folder.name for folder in datafiles]}, Found file: {file.name if file else 'No file found'}",
+            parameter=f"Found folders: {[folder.name for folder in datafiles]}",
         )
 
         excel_file = pd.ExcelFile(mainfile)

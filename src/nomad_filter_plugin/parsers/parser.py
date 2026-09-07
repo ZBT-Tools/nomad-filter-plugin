@@ -79,7 +79,17 @@ class NewParser(MatchingParser):
         ]
 
         datafiles = files_without_extension if files_without_extension else None
-        logger.info(datafiles)
+        if datafiles is None:
+            logger.info(
+                "NewParser.parse",
+                parameter=f"No files matched the criteria",
+            )
+            return
+
+        logger.info(
+            "NewParser.parse",
+            parameter=f"Found folders: {[folder.name for folder in datafiles]}, Found file: {file.name if file else 'No file found'}",
+        )
         filter_file = pd.read_excel(mainfile, sheet_name="filter")
         filter_as_json = filter_file.to_dict(orient="records")
 

@@ -79,7 +79,7 @@ class NewParser(MatchingParser):
         ]
 
         datafiles = files_without_extension if files_without_extension else None
-
+        logger.info(datafiles)
         filter_file = pd.read_excel(mainfile, sheet_name="filter")
         filter_as_json = filter_file.to_dict(orient="records")
 
